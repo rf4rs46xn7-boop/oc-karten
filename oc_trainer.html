@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>OC Master-Trainer - Dr. Kramell</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f0f2f5; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { width: 100%; max-width: 700px; text-align: center; }
+        .card { background-color: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); height: 350px; display: flex; align-items: center; justify-content: center; cursor: pointer; perspective: 1000px; position: relative; transition: transform 0.5s; transform-style: preserve-3d; margin-bottom: 25px; }
+        .card.flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; border-radius: 20px; text-align: center; }
+        .front { border: 3px solid #3498db; font-size: 1.5em; font-weight: bold; color: #2c3e50; }
+        .back { background-color: #3498db; color: white; transform: rotateY(180deg); font-size: 1.2em; line-height: 1.6; }
+        .controls { display: flex; gap: 15px; justify-content: center; }
+        button { padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; transition: 0.3s; }
+        .prev-btn { background-color: #bdc3c7; color: #2c3e50; }
+        .next-btn { background-color: #27ae60; color: white; }
+        .progress { margin-top: 20px; font-weight: bold; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="color: #2c3e50;">OC Klausur-Trainer</h1>
+    <div class="card" id="flashcard" onclick="flipCard()">
+        <div class="card-face front" id="question">Frage lädt...</div>
+        <div class="card-face back" id="answer">Antwort lädt...</div>
+    </div>
+    <div class="controls">
+        <button class="prev-btn" onclick="prevCard()">Zurück</button>
+        <button class="next-btn" onclick="nextCard()">Nächste</button>
+    </div>
+    <div class="progress" id="progress">Karte 1 von X</div>
+</div>
+
+<script>
+    const deck = [
+        // BLOCK 1: ORBITALE & BINDUNG
+        { q: "Hybridisierung im Methan?", a: "sp3 (tetraedrisch, 109,5°)." },
+        { q: "Hybridisierung im Ethen?", a: "sp2 (trigonal-planar, 120°)." },
+        { q: "Hybridisierung im Ethin?", a: "sp (linear, 180°)." },
+        { q: "Bindungstypen in C=C Doppelbindung?", a: "Eine Sigma-Bindung (axiale Überlappung) und eine Pi-Bindung (seitliche Überlappung)." },
+        { q: "Elektronegativität von C im Vergleich zu H?", a: "C (2,5) ist elektronegativer als H (2,1)." },
+
+        // BLOCK 2: ALKANE & KONFORMATION
+        { q: "Stabilste Konformation von n-Butan?", a: "anti-Konformation (Methylgruppen 180° zueinander)." },
+        { q: "Energetisch ungünstigste Konformation?", a: "ekliptische Konformation (H-Atome direkt hintereinander)." },
+        { q: "Cyclohexan: Welche Position ist stabiler für große Reste?", a: "Die äquatoriale Position (vermeidet 1,3-diaxiale Abstoßung)." },
+        { q: "Was ist Ringspannung (Baeyer-Spannung)?", a: "Spannung durch Abweichung vom idealen Tetraederwinkel (109,5°), extrem in Cyclopropan." },
+        { q: "Reaktionstyp der Alkane?", a: "Radikalische Substitution (S_R)." },
+
+        // BLOCK 3: ALKENE & ADDITION
+        { q: "Hauptreaktionstyp der Alkene?", a: "Elektrophile Addition (A_E)." },
+        { q: "Markownikow-Regel (HX-Addition)?", a: "H geht an das C mit den meisten H-Atomen (stabileres Kation bildet sich)." },
+        { q: "Bromierung von Alkenen: Mechanismus?", a: "Anti-Addition über ein zyklisches Bromonium-Ion." },
+        { q: "Hydrierung mit Pd/C: Stereochemie?", a: "Syn-Addition (beide H von der gleichen Seite)." },
+        { q: "Antimarkownikow-Addition von HBr?", a: "Nur möglich bei Zugabe von Peroxiden (radikalischer Weg)." },
+        { q: "Ozonolyse (O3): Ergebnis?", a: "Vollständige Spaltung der C=C Bindung in zwei Carbonylgruppen." },
+        { q: "Diels-Alder Reaktionstyp?", a: "[4+2]-Cycloaddition (Dien + Dienophil)." },
+        { q: "Konfigurationserhalt bei Diels-Alder?", a: "Ja, es ist eine konzertierte Reaktion (Stereospezifisch)." },
+
+        // BLOCK 4: ALKYNE
+        { q: "Acidität terminaler Alkyne?", a: "Relativ hoch (pKs 25) durch hohen s-Charakter des sp-Orbitals." },
+        { q: "Reduktion zum cis-Alken?", a: "H2 + Lindlar-Katalysator." },
+        { q: "Reduktion zum trans-Alken?", a: "Na in flüssigem Ammoniak (Birch-ähnlich)." },
+        { q: "Produkt der Hydratisierung von Ethin?", a: "Acetaldehyd (via Enol-Tautomerie)." },
+
+        // BLOCK 5: STEREOCHEMIE
+        { q: "Definition Enantiomere?", a: "Nicht deckungsgleich, verhalten sich wie Bild und Spiegelbild." },
+        { q: "Definition Diastereomere?", a: "Stereoisomere, die keine Enantiomere sind (z.B. cis/trans oder Epimere)." },
+        { q: "Was ist ein Stereozentrum?", a: "Ein C-Atom mit 4 unterschiedlichen Substituenten." },
+        { q: "R/S-System: Drehsinn im Uhrzeigersinn (Rest 4 hinten)?", a: "R-Konfiguration (rectus)." },
+        { q: "Was macht ein Racemat optisch?", a: "Es ist optisch inaktiv (Drehwerte heben sich auf)." },
+        { q: "Mesoverbindung: Chiral oder Achiral?", a: "Achiral (trotz Stereozentren, da interne Spiegelebene)." },
+
+        // BLOCK 6: AROMATEN
+        { q: "Hückel-Regel: Kriterien?", a: "Zyklisch, planar, durchgehend konjugiert, (4n + 2) Pi-Elektronen." },
+        { q: "Reaktionstyp am Benzolring?", a: "Elektrophile aromatische Substitution (S_E Ar)." },
+        { q: "Nitrierung von Benzol: Reagenz?", a: "Nitriersäure (konz. H2SO4 + konz. HNO3)." },
+        { q: "Friedel-Crafts-Alkylierung: Katalysator?", a: "AlCl3 (Lewis-Säure)." },
+        { q: "Wirkung von Erstsubstituenten mit +M-Effekt (-OH, -NH2)?", a: "Aktivierend und dirigieren nach ortho/para." },
+        { q: "Wirkung von -M/-I Substituenten (-NO2, -CN)?", a: "Deaktivierend und dirigieren nach meta." },
+        { q: "Sonderfall Halogene am Aromaten?", a: "Deaktivierend (-I), aber ortho/para-dirigierend (+M)." },
+        { q: "Ist Pyridin basischer als Pyrrol?", a: "Ja, da das freie Elektronenpaar am N bei Pyridin nicht Teil des Aromaten ist." },
+
+        // BLOCK 7: ALKOHOLE, ETHER & CARBONYLE
+        { q: "Siedepunkte Alkohole vs. Alkane?", a: "Viel höher wegen Wasserstoffbrückenbindungen." },
+        { q: "Oxidation primärer Alkohole (vollständig)?", a: "Zur Carbonsäure (über den Aldehyd)." },
+        { q: "Oxidation sekundärer Alkohole?", a: "Zum Keton." },
+        { q: "Bildung eines Halbacetals?", a: "Reaktion von Aldehyd/Keton mit einem Äquivalent Alkohol." },
+        { q: "Was ist die Keto-Enol-Tautomerie?", a: "Protonenwanderung zwischen C-Atom und O-Atom (Gleichgewicht)." },
+        { q: "Kondensation von Aldehyd + primärem Amin?", a: "Schiffsche Base (Azomethin/Imin)." },
+
+        // BLOCK 8: AMINOSÄUREN & NATURSTOFFE
+        { q: "Was ist ein Zwitterion?", a: "Ein Molekül mit positiver und negativer Ladung, aber Nettoladung Null (z.B. Aminosäuren)." },
+        { q: "Isoelektrischer Punkt (IEP)?", a: "pH-Wert, an dem die Aminosäure als Zwitterion vorliegt." },
+        { q: "Peptidbindung: Welcher Bindungstyp?", a: "Eine Amidbindung." },
+        { q: "Bausteine von Naturkautschuk?", a: "Isopren-Einheiten (2-Methyl-1,3-butadien)." },
+        { q: "Vulkanisation?", a: "Vernetzung von Polymerketten durch Schwefelbrücken (erhöht Elastizität)." },
+        { q: "Unterschied Stärke und Cellulose?", a: "Stärke: alpha-1,4-verknüpft (spiralig); Cellulose: beta-1,4-verknüpft (linear/Fasern)." }
+    ];
+
+    let currentIndex = 0;
+    const card = document.getElementById('flashcard');
+    const questionDiv = document.getElementById('question');
+    const answerDiv = document.getElementById('answer');
+    const progressDiv = document.getElementById('progress');
+
+    function updateCard() {
+        card.classList.remove('flipped');
+        setTimeout(() => {
+            questionDiv.innerText = deck[currentIndex].q;
+            answerDiv.innerText = deck[currentIndex].a;
+            progressDiv.innerText = `Karte ${currentIndex + 1} von ${deck.length}`;
+        }, 200);
+    }
+
+    function flipCard() { card.classList.toggle('flipped'); }
+    function nextCard() { currentIndex = (currentIndex + 1) % deck.length; updateCard(); }
+    function prevCard() { currentIndex = (currentIndex - 1 + deck.length) % deck.length; updateCard(); }
+
+    updateCard();
+</script>
+
+</body>
+</html>
