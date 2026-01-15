@@ -68,57 +68,66 @@
 </div>
 
 <script>
-    const allCards = [
-        // GRUNDLAGEN & ALKANE
-        { cat: "Grundlagen", q: "Hybridisierung im Methan?", a: "sp3 (tetraedrisch, 109,5°)." },
-        { cat: "Grundlagen", q: "Hybridisierung im Ethen?", a: "sp2 (trigonal-planar, 120°)." },
-        { cat: "Grundlagen", q: "Hybridisierung im Ethin?", a: "sp (linear, 180°)." },
-        { cat: "Grundlagen", q: "Stabilste Butan-Konformation?", a: "anti-periplanar (180°)." },
-        { cat: "Grundlagen", q: "Konformation Cyclohexan (stabil)?", a: "Sesselkonformation." },
-        { cat: "Grundlagen", q: "Reaktionstyp der Alkane?", a: "Radikalische Substitution (S_R)." },
-        { cat: "Grundlagen", q: "Phasen der radikalischen Subst.?", a: "1. Start (Initiierung), 2. Fortpflanzung (Propagierung), 3. Abbruch (Terminierung)." },
+const allCards = [
+    // --- 1. GRUNDLAGEN, ALKANE & KONFORMATIONEN ---
+    { cat: "Grundlagen", q: "Hybridisierung im Methan?", a: "sp3 (tetraedrisch, 109,5°)." },
+    { cat: "Grundlagen", q: "Hybridisierung im Ethen?", a: "sp2 (trigonal-planar, 120°)." },
+    { cat: "Grundlagen", q: "Hybridisierung im Ethin?", a: "sp (linear, 180°)." },
+    { cat: "Grundlagen", q: "Hybridisierung in Propin (C3H4)?", a: "C1 & C2 sind sp (Dreifachbindung), C3 ist sp3." },
+    { cat: "Grundlagen", q: "Stabilste Butan-Konformation?", a: "anti-periplanar (Reste stehen 180° zueinander)." },
+    { cat: "Grundlagen", q: "Newman: Energiegehalt 'Eclipsed'?", a: "Energetisches Maximum (Instabil) durch ekliptische Abstoßung." },
+    { cat: "Grundlagen", q: "Methylcyclohexan: Wo steht Methyl stabiler?", a: "Äquatorial (vermeidet 1,3-diaxiale Wechselwirkung)." },
+    { cat: "Grundlagen", q: "Siedepunkt: n-Pentan vs. Neopentan?", a: "n-Pentan ist höher (größere Oberfläche für Van-der-Waals)." },
+    { cat: "Grundlagen", q: "Warum ist Cyclopropan instabil?", a: "Hohe Baeyer-Spannung (Winkel 60° statt 109,5°)." },
+    { cat: "Grundlagen", q: "Reaktionstyp der Alkane?", a: "Radikalische Substitution (S_R)." },
 
-        // ALKENE & ALKYNE
-        { cat: "Alkene", q: "Hauptreaktion der Alkene?", a: "Elektrophile Addition (A_E)." },
-        { cat: "Alkene", q: "Markownikow-Regel?", a: "H addiert an das C mit den meisten H-Atomen." },
-        { cat: "Alkene", q: "Bromierung Stereochemie?", a: "Anti-Addition über Bromonium-Ion." },
-        { cat: "Alkene", q: "Hydrierung Pd/C Stereochemie?", a: "Syn-Addition." },
-        { cat: "Alkene", q: "Ozonolyse Reagenz & Zweck?", a: "O3; Spaltung von C=C in zwei C=O Gruppen." },
-        { cat: "Alkene", q: "Diels-Alder Reaktion?", a: "[4+2]-Cycloaddition (Dien + Dienophil)." },
-        { cat: "Alkene", q: "Lindlar-Katalysator?", a: "Partielle Hydrierung Alkin -> cis-Alken." },
-        { cat: "Alkene", q: "Na / fl. NH3 bei Alkinen?", a: "Reduktion Alkin -> trans-Alken." },
+    // --- 2. ALKENE, ALKYNE & ADDITIONEN ---
+    { cat: "Alkene", q: "Hauptreaktion der Alkene?", a: "Elektrophile Addition (A_E)." },
+    { cat: "Alkene", q: "Markownikow-Regel (Propen + HBr)?", a: "H geht an C1, Br an C2 (stabileres sek. Kation)." },
+    { cat: "Alkene", q: "Bromierung: Mechanismus & Stereochemie?", a: "Anti-Addition über zyklisches Bromonium-Ion." },
+    { cat: "Alkene", q: "Hydrierung mit Pd/C?", a: "Syn-Addition von Wasserstoff." },
+    { cat: "Alkene", q: "Ozonolyse von 2-Methylbut-2-en?", a: "Spaltung in Aceton (Propanon) und Acetaldehyd (Ethanal)." },
+    { cat: "Alkene", q: "Alkin zu cis-Alken?", a: "H2 + Lindlar-Katalysator (Syn-Addition)." },
+    { cat: "Alkene", q: "Alkin zu trans-Alken?", a: "Na in flüssigem NH3 (Anti-Reduktion)." },
+    { cat: "Alkene", q: "Diels-Alder Reaktion?", a: "[4+2]-Cycloaddition zwischen Dien und Dienophil." },
+    { cat: "Alkene", q: "Bedingung für das Dien (Diels-Alder)?", a: "Muss s-cis Konformation einnehmen können." },
 
-        // AROMATEN
-        { cat: "Aromaten", q: "Hückel-Regel?", a: "Zyklisch, planar, konjugiert, 4n+2 Pi-Elektronen." },
-        { cat: "Aromaten", q: "Reaktionstyp Benzol?", a: "Elektrophile Aromatische Substitution (S_E Ar)." },
-        { cat: "Aromaten", q: "Nitriersäure?", a: "H2SO4 + HNO3 (erzeugt NO2+)." },
-        { cat: "Aromaten", q: "Wirkung -OH Gruppe?", a: "+M Effekt, aktivierend, ortho/para-dirigierend." },
-        { cat: "Aromaten", q: "-NO2 Gruppe am Aromaten?", a: "-M/-I Effekt, desaktivierend, meta-dirigierend." },
-        { cat: "Aromaten", q: "Halogene am Benzol?", a: "Desaktivierend (-I), aber ortho/para-dirigierend (+M)." },
-        { cat: "Aromaten", q: "Friedel-Crafts-Alkylierung Kat?", a: "AlCl3 (Lewis-Säure)." },
-        { cat: "Aromaten", q: "Sigma-Komplex?", a: "Nicht-aromatisches kationisches Intermediat der S_E Ar." },
+    // --- 3. AROMATEN & SUBSTITUENTENEFFEKTE ---
+    { cat: "Aromaten", q: "Hückel-Regel?", a: "Zyklisch, planar, konjugiert, 4n+2 Pi-Elektronen." },
+    { cat: "Aromaten", q: "Reaktionstyp Benzol?", a: "Elektrophile Aromatische Substitution (S_E Ar)." },
+    { cat: "Aromaten", q: "Nitrierung: Aktives Elektrophil?", a: "Nitronium-Ion (NO2+)." },
+    { cat: "Aromaten", q: "Wirkung -OH (Phenol)?", a: "+M > -I: Aktivierend, ortho/para-dirigierend." },
+    { cat: "Aromaten", q: "Wirkung -NO2 (Nitrobenzol)?", a: "-M / -I: Desaktivierend, meta-dirigierend." },
+    { cat: "Aromaten", q: "Halogene am Benzol (Sonderfall)?", a: "Desaktivierend (-I), aber ortho/para-dirigierend (+M)." },
+    { cat: "Aromaten", q: "Ist Pyridin aromatisch?", a: "Ja (6 Pi-Elektronen, N-Lp nicht im Ringsystem)." },
+    { cat: "Aromaten", q: "Sigma-Komplex?", a: "Wheland-Intermediat; kationisch und nicht aromatisch." },
 
-        // STEREOCHEMIE
-        { cat: "Stereochemie", q: "Enantiomere?", a: "Bild/Spiegelbild, nicht deckungsgleich." },
-        { cat: "Stereochemie", q: "Diastereomere?", a: "Stereoisomere, die keine Enantiomere sind." },
-        { cat: "Stereochemie", q: "Racemat?", a: "1:1 Mischung von Enantiomeren (optisch inaktiv)." },
-        { cat: "Stereochemie", q: "Mesoverbindung?", a: "Trotz Stereozentren achiral (interne Spiegelebene)." },
-        { cat: "Stereochemie", q: "R/S-System Priorität?", a: "Nach Ordnungszahl (CIP-Regeln)." },
+    // --- 4. STEREOCHEMIE & ISOMERIE ---
+    { cat: "Stereochemie", q: "Definition Enantiomere?", a: "Bild und Spiegelbild, nicht deckungsgleich." },
+    { cat: "Stereochemie", q: "Definition Diastereomere?", a: "Stereoisomere, die keine Enantiomere sind (z.B. cis/trans)." },
+    { cat: "Stereochemie", q: "Mesoverbindung?", a: "Achiral trotz Stereozentren (interne Spiegelebene)." },
+    { cat: "Stereochemie", q: "Priorität CIP: -OH vs. -COOH?", a: "-OH gewinnt (O hat höhere Ordnungszahl als C)." },
+    { cat: "Stereochemie", q: "Was ist ein Racemat?", a: "1:1 Mischung von Enantiomeren (optisch inaktiv)." },
+    { cat: "Stereochemie", q: "Inversion der Konfiguration?", a: "Walden-Inversion bei SN2-Reaktionen." },
 
-        // CARBONYL & SÄUREN
-        { cat: "Carbonyl", q: "Oxidation prim. Alkohol (mild)?", a: "Aldehyd." },
-        { cat: "Carbonyl", q: "Oxidation sek. Alkohol?", a: "Keton." },
-        { cat: "Carbonyl", q: "Keto-Enol-Tautomerie?", a: "Umlagerung C=O zu C=C-OH." },
-        { cat: "Carbonyl", q: "Nucleophile Addition?", a: "Hauptreaktion an Aldehyden/Ketonen." },
-        { cat: "Carbonyl", q: "Fischer-Veresterung?", a: "Säure + Alkohol + H+ (Kat) -> Ester + H2O." },
-        { cat: "Carbonyl", q: "Säurestärke Trichloressigsäure?", a: "Sehr hoch durch -I Effekte der Cl-Atome." },
+    // --- 5. CARBONYL, SÄUREN & DERIVATE ---
+    { cat: "Carbonyl", q: "Oxidation prim. Alkohol (vollständig)?", a: "Carbonsäure (über Aldehyd)." },
+    { cat: "Carbonyl", q: "Oxidation sek. Alkohol?", a: "Keton." },
+    { cat: "Carbonyl", q: "Nachweis Aldehyd?", a: "Fehling (Cu2+ -> Cu2O) oder Tollens (Silberspiegel)." },
+    { cat: "Carbonyl", q: "Nucleophile Addition?", a: "Angriff am elektrophilen Carbonyl-C (z.B. Bildung Halbacetal)." },
+    { cat: "Carbonyl", q: "Fischer-Veresterung?", a: "Carbonsäure + Alkohol + Säure-Kat <-> Ester + H2O." },
+    { cat: "Carbonyl", q: "Verseifung (Esterhydrolyse)?", a: "Irreversibel im Basischen (Bildung von Carboxylat)." },
+    { cat: "Carbonyl", q: "pKs: Essigsäure (4,7) vs. Ethanol (16)?", a: "Essigsäure ist saurer durch Resonanzstabilisierung des Anions." },
 
-        // NATURSTOFFE
-        { cat: "Naturstoffe", q: "Peptidbindung?", a: "Amidbindung (CONH)." },
-        { cat: "Naturstoffe", q: "Isoelektrischer Punkt?", a: "pH, bei dem Nettoladung = 0 (Zwitterion)." },
-        { cat: "Naturstoffe", q: "Monomer Kautschuk?", a: "Isopren (2-Methyl-1,3-butadien)." },
-        { cat: "Naturstoffe", q: "Vulkanisation?", a: "Vernetzung durch Schwefelbrücken." }
-    ];
+    // --- 6. NATURSTOFFE & POLYMERE ---
+    { cat: "Naturstoffe", q: "Isoelektrischer Punkt (IEP)?", a: "pH-Wert, an dem Nettoladung = 0 (Zwitterion)." },
+    { cat: "Naturstoffe", q: "Peptidbindung?", a: "Amidbindung (CONH) zwischen Aminosäuren." },
+    { cat: "Naturstoffe", q: "L-Konfiguration Aminosäuren?", a: "NH2-Gruppe in Fischer-Projektion links (meist S-Konfiguration)." },
+    { cat: "Naturstoffe", q: "Monomer Kautschuk?", a: "Isopren (2-Methyl-1,3-butadien)." },
+    { cat: "Naturstoffe", q: "Vulkanisation?", a: "Vernetzung durch Schwefelbrücken (erhöht Elastizität)." },
+    { cat: "Naturstoffe", q: "Monomer PVC?", a: "Vinylchlorid (Chlorethen)." },
+    { cat: "Naturstoffe", q: "Unterschied Stärke/Cellulose?", a: "Stärke: alpha-1,4-Bindung; Cellulose: beta-1,4-Bindung." }
+];
 
     let workingDeck = [];
     let finishedCount = 0;
