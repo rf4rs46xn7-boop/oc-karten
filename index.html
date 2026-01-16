@@ -5,10 +5,8 @@
     <title>OC Lernkarten ✨</title>
     <style>
     :root { 
-        /* Dein gewünschter angenehmer Pinkton */
         --bg: #FCE4EC; 
-        /* Weitere Farben für die Karten und Knöpfe */
-        --primary: #d81b60; /* Ein dunkleres Pink/Beere für die Buttons passend zum Hintergrund */
+        --primary: #d81b60; 
         --success: #27ae60; 
         --danger: #e74c3c; 
         --dark: #2c3e50; 
@@ -16,29 +14,29 @@
 
     body { 
         font-family: 'Segoe UI', sans-serif; 
-        /* Hier wird die Variable --bg benutzt */
         background-color: var(--bg); 
         display: flex; 
         flex-direction: column; 
         align-items: center; 
         padding: 20px; 
-        margin: 0; }
+        margin: 0; 
+    }
     
-        .setup-area { margin-bottom: 20px; background: white; padding: 15px 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        select { padding: 10px; border-radius: 6px; border: 1px solid #ddd; font-size: 16px; width: 300px; cursor: pointer; }
-        .container { width: 100%; max-width: 650px; text-align: center; }
-        .card-container { perspective: 1000px; margin-bottom: 25px; }
-        .card { background-color: white; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); height: 380px; cursor: pointer; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
-        .card.flipped { transform: rotateY(180deg); }
-        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 35px; box-sizing: border-box; border-radius: 20px; }
-        .front { border: 4px solid var(--primary); color: var(--dark); font-size: 1.3em; font-weight: bold; }
-        .back { background-color: var(--primary); color: white; transform: rotateY(180deg); font-size: 1.1em; line-height: 1.5; text-align: left; }
-        .controls { display: flex; flex-direction: column; gap: 15px; }
-        .score-buttons { display: flex; justify-content: center; gap: 15px; }
-        button { padding: 14px 24px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; transition: all 0.2s; }
-        .btn-green { background-color: var(--success); color: white; flex: 1; }
-        .btn-red { background-color: var(--danger); color: white; flex: 1; }
-        .stats { margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; padding: 15px; border-radius: 12px; }
+    .setup-area { margin-bottom: 20px; background: white; padding: 15px 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    select { padding: 10px; border-radius: 6px; border: 1px solid #ddd; font-size: 16px; width: 300px; cursor: pointer; }
+    .container { width: 100%; max-width: 650px; text-align: center; }
+    .card-container { perspective: 1000px; margin-bottom: 25px; }
+    .card { background-color: white; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); height: 420px; cursor: pointer; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+    .card.flipped { transform: rotateY(180deg); }
+    .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 35px; box-sizing: border-box; border-radius: 20px; }
+    .front { border: 4px solid var(--primary); color: var(--dark); font-size: 1.3em; font-weight: bold; }
+    .back { background-color: var(--primary); color: white; transform: rotateY(180deg); font-size: 1.1em; line-height: 1.5; text-align: center; }
+    img { max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 8px; background: white; padding: 5px; }
+    .score-buttons { display: flex; justify-content: center; gap: 15px; }
+    button { padding: 14px 24px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; transition: all 0.2s; }
+    .btn-green { background-color: var(--success); color: white; flex: 1; }
+    .btn-red { background-color: var(--danger); color: white; flex: 1; }
+    .stats { margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; padding: 15px; border-radius: 12px; }
     </style>
 </head>
 <body>
@@ -55,7 +53,7 @@
         <option value="Naturstoffe">6. Naturstoffe & Polymere</option>
         <option value="Aminosäuren">7. Aminosäuren</option>
     </select>
-    <button onclick="restartLearning()" style="font-size: 12px; margin-top:5px;">Stapel neu mischen</button>
+    <button onclick="restartLearning()" style="font-size: 12px; margin-top:5px; background: #999; color: white;">Stapel neu mischen</button>
 </div>
 
 <div class="container">
@@ -66,11 +64,9 @@
                 <div class="card-face back" id="a">Antwort</div>
             </div>
         </div>
-        <div class="controls">
-            <div class="score-buttons">
-                <button class="btn-red" onclick="markUnknown()">Nochmal ❌</button>
-                <button class="btn-green" onclick="markKnown()">Gewusst ✅</button>
-            </div>
+        <div class="score-buttons">
+            <button class="btn-red" onclick="markUnknown()">Nochmal ❌</button>
+            <button class="btn-green" onclick="markKnown()">Gewusst ✅</button>
         </div>
     </div>
     <div id="finished-area" style="display:none; background:white; padding:40px; border-radius:20px;">
@@ -85,146 +81,40 @@
 
 <script>
 const allCards = [
-    // --- GRUNDLAGEN & ALKANE ---
     { cat: "Grundlagen", q: "Hybridisierung im Methan?", a: "sp3 (tetraedrisch, 109,5°)." },
     { cat: "Grundlagen", q: "Hybridisierung im Ethen?", a: "sp2 (trigonal-planar, 120°)." },
     { cat: "Grundlagen", q: "Hybridisierung im Ethin?", a: "sp (linear, 180°)." },
-    { cat: "Grundlagen", q: "Was ist ein Radikal?", a: "Ein Atom oder Molekül mit einem ungepaarten Elektron (hochreaktiv)." },
-    { cat: "Grundlagen", q: "Stabilitätsreihenfolge von Radikalen?", a: "Tertiär > Sekundär > Primär > Methyl (wegen Hyperkonjugation und +I-Effekt)." },
-    { cat: "Grundlagen", q: "Newman-Projektion: Diederwinkel bei 'anti'?", a: "180° (energetisch günstigste Form)." },
-    { cat: "Grundlagen", q: "Newman-Projektion: Diederwinkel bei 'gauche'?", a: "60°." },
-    { cat: "Grundlagen", q: "Sesselkonformation: Axial vs. Äquatorial?", a: "Substituenten stehen bevorzugt äquatorial (weniger sterische Hinderung)." },
-    { cat: "Grundlagen", q: "Definition Konstitutionsisomere?", a: "Gleiche Summenformel, unterschiedliche Verknüpfung der Atome." },
-    { cat: "Grundlagen", q: "Siedepunkte: n-Alkane vs. verzweigte Alkane?", a: "n-Alkane haben höhere Siedepunkte (größere Oberfläche für Van-der-Waals-Kräfte)." },
-    { cat: "Grundlagen", q: "Verbrennung von Alkanen: Produkte?", a: "CO2 und H2O (exotherme Reaktion)." },
-    { cat: "Grundlagen", q: "Was ist die Baeyer-Spannung?", a: "Spannung durch Abweichung vom idealen Bindungswinkel (besonders hoch in Cyclopropan)." },
-
-    // --- ALKENE & ALKYNE ---
-    { cat: "Alkene", q: "Hauptreaktionstyp der Alkene?", a: "Elektrophile Addition (A_E)." },
-    { cat: "Alkene", q: "Regel von Markownikow?", a: "Bei der Addition von HX an Alkene geht das H an das C-Atom mit den meisten H-Atomen." },
+    { cat: "Grundlagen", q: "Stabilitätsreihenfolge von Radikalen?", a: "Tertiär > Sekundär > Primär > Methyl." },
+    { cat: "Grundlagen", q: "Sesselkonformation: Axial vs. Äquatorial?", a: "Substituenten stehen bevorzugt äquatorial." },
+    
+    { cat: "Alkene", q: "Regel von Markownikow?", a: "H addiert an das C mit den meisten H-Atomen." },
     { cat: "Alkene", q: "Bromierung von Alkenen: Mechanismus?", a: "Anti-Addition über ein zyklisches Bromonium-Ion." },
-    { cat: "Alkene", q: "Hydrierung Pd/C: Stereochemie?", a: "Syn-Addition (H-Atome kommen von der gleichen Seite)." },
-    { cat: "Alkene", q: "Ozonolyse: Was passiert?", a: "Spaltung der C=C Doppelbindung in zwei Carbonylgruppen (Aldehyde/Ketone)." },
-    { cat: "Alkene", q: "Alkin + H2 + Lindlar-Kat?", a: "cis-Alken (Z-Alken)." },
-    { cat: "Alkene", q: "Alkin + Na / fl. NH3?", a: "trans-Alken (E-Alken)." },
-    { cat: "Alkene", q: "Diels-Alder-Reaktion?", a: "[4+2]-Cycloaddition zwischen einem konjugierten Dien und einem Dienophil." },
-    { cat: "Alkene", q: "Was ist die Zaitsev-Regel?", a: "Bei Eliminierungen entsteht bevorzugt das Alken mit der höheren Anzahl an Alkylgruppen an der Doppelbindung." },
-    { cat: "Alkene", q: "Hydratisierung von Alkinen?", a: "Ergibt Ketone (via Keto-Enol-Tautomerie), außer bei Ethin (ergibt Aldehyd)." },
-    { cat: "Alkene", q: "Hydroborierung/Oxidation?", a: "Anti-Markownikow-Addition von Wasser zu Alkoholen." },
-    { cat: "Alkene", q: "Prioritäten nach Ordnungszahl" , a: "I >Br>Cl>S >P >O>N >C >H"},
-    { cat: "Alkene", q: "Wofür stehen E und Z?" , a: "(Z) (Zusammen): Die beiden Reste mit höchster Priorität liegen auf derselben Seite.(E) (Entgegen): Die beiden Reste liegen auf gegenüberliegenden Seiten. "},
+    { cat: "Alkene", q: "Prioritäten nach Ordnungszahl", a: "I > Br > Cl > S > P > O > N > C > H" },
+    { cat: "Alkene", q: "Wofür stehen E und Z?", a: "(Z) Zusammen: gleiche Seite<br>(E) Entgegen: gegenüberliegende Seite" },
 
-    // --- AROMATEN ---
-    { cat: "Aromaten", q: "Hückel-Regel Kriterien?", a: "1. Zyklisch, 2. Planar, 3. Durchgehend konjugiert, 4. 4n+2 Pi-Elektronen." },
-    { cat: "Aromaten", q: "Reaktionstyp am Benzol?", a: "Elektrophile Aromatische Substitution (S_E Ar)." },
-    { cat: "Aromaten", q: "Wirkung der -OH Gruppe (Phenol)?", a: "+M Effekt, stark aktivierend, dirigiert nach ortho/para." },
-    { cat: "Aromaten", q: "Wirkung der -NO2 Gruppe (Nitrobenzol)?", a: "-M/-I Effekt, stark desaktivierend, dirigiert nach meta." },
-    { cat: "Aromaten", q: "Halogene am Benzol (Sonderfall)?", a: "-I Effekt (desaktivierend), aber +M Effekt (dirigiert nach ortho/para)." },
-    { cat: "Aromaten", q: "Friedel-Crafts-Alkylierung: Probleme?", a: "1. Mehrfachalkylierung, 2. Umlagerungen des Carbeniumions." },
-    { cat: "Aromaten", q: "Nitrierung: Elektrophil?", a: "Nitronium-Ion (NO2+)." },
-    { cat: "Aromaten", q: "Ist Pyridin basischer als Pyrrol?", a: "Ja, da das freie Elektronenpaar bei Pyridin nicht Teil des aromatischen Sextetts ist." },
-    { cat: "Aromaten", q: "Was ist der Sigma-Komplex?", a: "Das kationische Zwischenprodukt der S_E Ar (Wheland-Komplex)." },
-    { cat: "Aromaten", q: "Sulfonierung von Benzol?", a: "Reaktion mit rauchender Schwefelsäure (H2SO4 + SO3); reversibel!" },
+    { cat: "Aromaten", q: "Hückel-Regel Kriterien?", a: "1. Zyklisch, 2. Planar, 3. Konjugiert, 4. 4n+2 Pi-Elektronen." },
+    { cat: "Aromaten", q: "Wirkung der -NO2 Gruppe?", a: "-M/-I Effekt, desaktivierend, meta-dirigierend." },
+    { cat: "Aromaten", q: "Halogene am Benzol?", a: "Desaktivierend, aber ortho/para-dirigierend." },
 
-    // --- STEREOCHEMIE ---
-    { cat: "Stereochemie", q: "Definition Enantiomere?", a: "Bild und Spiegelbild, die nicht deckungsgleich sind." },
-    { cat: "Stereochemie", q: "Definition Diastereomere?", a: "Stereoisomere, die keine Enantiomere sind." },
-    { cat: "Stereochemie", q: "Was ist ein Racemat?", a: "Eine 1:1-Mischung zweier Enantiomere (optisch inaktiv)." },
-    { cat: "Stereochemie", q: "Meso-Verbindung?", a: "Ein Molekül mit Stereozentren, das achiral ist (wegen interner Spiegelebene)." },
-    { cat: "Stereochemie", q: "Bedeutung von 'R' und 'S'?", a: "R = rectus (rechts), S = sinister (links); nach Cahn-Ingold-Prelog (CIP)." },
-    { cat: "Stereochemie", q: "Wie viele Stereoisomere bei n Stereozentren?", a: "Maximal 2^n." },
-    { cat: "Stereochemie", q: "Walden-Inversion?", a: "Umkehrung der Konfiguration bei der SN2-Reaktion." },
-    { cat: "Stereochemie", q: "E/Z-Isomerie?", a: "Z (zusammen) = Prioritäten auf gleicher Seite; E (entgegen) = gegenüber." },
+    { cat: "Stereochemie", q: "Definition Enantiomere?", a: "Bild und Spiegelbild, nicht deckungsgleich." },
+    { cat: "Stereochemie", q: "Was ist ein Racemat?", a: "1:1-Mischung zweier Enantiomere." },
 
-    // --- CARBONYL & SÄUREN ---
-    { cat: "Carbonyl", q: "Reaktivitätsreihenfolge Carbonylverbindungen?", a: "Säurechlorid > Aldehyd > Keton > Ester > Amid." },
     { cat: "Carbonyl", q: "Oxidation primärer Alkohole?", a: "Aldehyd -> Carbonsäure." },
-    { cat: "Carbonyl", q: "Oxidation sekundärer Alkohole?", a: "Keton." },
-    { cat: "Carbonyl", q: "Nucleophile Addition am Carbonyl?", a: "Angriff des Nucleophils am elektrophilen C-Atom." },
-    { cat: "Carbonyl", q: "Fischer-Veresterung?", a: "Carbonsäure + Alkohol + Säure-Katalysator <-> Ester + Wasser." },
-    { cat: "Carbonyl", q: "Keto-Enol-Tautomerie?", a: "Gleichgewicht zwischen Carbonyl- und Enol-Form (meist Seite der Carbonylform bevorzugt)." },
-    { cat: "Carbonyl", q: "Verseifung (Esterhydrolyse im Basischen)?", a: "Irreversible Reaktion zu Carboxylat und Alkohol." },
-    { cat: "Carbonyl", q: "Grignard-Reaktion?", a: "R-MgX + Carbonyl -> Alkohol (C-C Verknüpfung)." },
-    { cat: "Carbonyl", q: "Cannizzaro-Reaktion?", a: "Disproportionierung von Aldehyden ohne alpha-H (z.B. Benzaldehyd)." },
-    { cat: "Carbonyl", q: "pKs-Wert: Essigsäure vs. Phenol?", a: "Essigsäure (4,7) ist saurer als Phenol (10)." },
+    { cat: "Carbonyl", q: "Fischer-Veresterung?", a: "Säure + Alkohol + Kat. <-> Ester + Wasser." },
 
-    // --- NATURSTOFFE & POLYMERE ---
-    { cat: "Naturstoffe", q: "Definition Aminosäuren?", a: "Verbindungen mit Amino- (-NH2) und Carboxylgruppe (-COOH)." },
-    { cat: "Naturstoffe", q: "Peptidbindung?", a: "Amidbindung zwischen der Carboxylgruppe einer AS und der Aminogruppe einer zweiten AS." },
-    { cat: "Naturstoffe", q: "Isoelektrischer Punkt (IEP)?", a: "pH-Wert, an dem die Nettoladung der AS Null ist (Zwitterion)." },
-    { cat: "Naturstoffe", q: "Primärstruktur Proteine?", a: "Sequenz der Aminosäuren." },
-    { cat: "Naturstoffe", q: "Unterschied Stärke und Cellulose?", a: "Stärke: alpha-1,4-glycosidisch; Cellulose: beta-1,4-glycosidisch." },
-    { cat: "Naturstoffe", q: "Isopren-Einheit?", a: "2-Methyl-1,3-butadien (Grundbaustein der Terpene/Kautschuk)." },
-    { cat: "Naturstoffe", q: "Polyethylen (PE) Herstellung?", a: "Radikalische Polymerisation von Ethen." },
-    { cat: "Naturstoffe", q: "Vulkanisation?", a: "Vernetzung von Kautschuk mit Schwefelbrücken." },
-    { cat: "Naturstoffe", q: "Wichtige Monomere: Styrol, Vinylchlorid?", a: "Ergeben Polystyrol (PS) und Polyvinylchlorid (PVC)." }
+    { cat: "Naturstoffe", q: "Peptidbindung?", a: "Amidbindung zwischen -COOH und -NH2 zweier Aminosäuren." },
+    { cat: "Naturstoffe", q: "Unterschied Stärke und Cellulose?", a: "Stärke: alpha-1,4; Cellulose: beta-1,4-Verknüpfung." },
+    { cat: "Naturstoffe", q: "Isopren-Einheit?", a: "2-Methyl-1,3-butadien." },
+    { cat: "Naturstoffe", q: "Wichtige Monomere: Styrol, Vinylchlorid?", a: "Ergeben Polystyrol (PS) und Polyvinylchlorid (PVC)." },
 
-   // --- AMINOSÄUREN ---
-
-// Unpolare / Aliphatische AS
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Glycin (Gly, G)?", 
-    a: "Die einfachste Aminosäure (achiral!). Rest: -H <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Glycine_structure.svg/200px-Glycine_structure.svg.png'>" 
-},
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Alanin (Ala, A)?", 
-    a: "Rest: Methylgruppe (-CH3) <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/L-Alanine_structure.svg/200px-L-Alanine_structure.svg.png'>" 
-},
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Valin (Val, V)?", 
-    a: "Rest: Isopropylgruppe. <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/L-Valine_structure.svg/200px-L-Valine_structure.svg.png'>" 
-},
-
-// Schwefelhaltige AS
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Cystein (Cys, C)?", 
-    a: "Wichtig für Disulfidbrücken. Rest: -CH2-SH <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/L-Cysteine_structure.svg/200px-L-Cysteine_structure.svg.png'>" 
-},
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Methionin (Met, M)?", 
-    a: "Start-Aminosäure bei der Translation. Rest: -CH2-CH2-S-CH3 <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/L-Methionine_structure.svg/200px-L-Methionine_structure.svg.png'>" 
-},
-
-// Aromatische AS
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Phenylalanin (Phe, F)?", 
-    a: "Rest: Benzylgruppe. <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/L-Phenylalanine_structure.svg/200px-L-Phenylalanine_structure.svg.png'>" 
-},
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Tyrosin (Tyr, Y)?", 
-    a: "Rest: para-Hydroxy-benzylgruppe. <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/L-Tyrosine_structure.svg/200px-L-Tyrosine_structure.svg.png'>" 
-},
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Tryptophan (Trp, W)?", 
-    a: "Größte AS. Rest: Indol-System. <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/L-Tryptophan_structure.svg/200px-L-Tryptophan_structure.svg.png'>" 
-},
-
-// Saure & Basische AS
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Asparaginsäure (Asp, D)?", 
-    a: "Sauer. Zweite Carboxylgruppe im Rest. <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/L-Aspartic_acid_structure.svg/200px-L-Aspartic_acid_structure.svg.png'>" 
-},
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Lysin (Lys, K)?", 
-    a: "Basisch. Rest: -CH2-CH2-CH2-CH2-NH2 <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/L-Lysine_structure.svg/200px-L-Lysine_structure.svg.png'>" 
-},
-
-// Besonderheit
-{ 
-    cat: "Naturstoffe", 
-    q: "Struktur von Prolin (Pro, P)?", 
-    a: "Einzige sekundäre Aminosäure (Ring zum Stickstoff). <br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/L-Proline_structure.svg/200px-L-Proline_structure.svg.png'>" 
-}
+    // --- AMINOSÄUREN (Kategorie angepasst für Filter) ---
+    { cat: "Aminosäuren", q: "Glycin (Gly, G)", a: "Einfachste AS (achiral). Rest: -H<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Glycine_structure.svg/200px-Glycine_structure.svg.png'>" },
+    { cat: "Aminosäuren", q: "Alanin (Ala, A)", a: "Rest: Methyl (-CH3)<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/L-Alanine_structure.svg/200px-L-Alanine_structure.svg.png'>" },
+    { cat: "Aminosäuren", q: "Valin (Val, V)", a: "Rest: Isopropyl<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/L-Valine_structure.svg/200px-L-Valine_structure.svg.png'>" },
+    { cat: "Aminosäuren", q: "Cystein (Cys, C)", a: "Rest: -CH2-SH<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/L-Cysteine_structure.svg/200px-L-Cysteine_structure.svg.png'>" },
+    { cat: "Aminosäuren", q: "Phenylalanin (Phe, F)", a: "Rest: Benzylgruppe<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/L-Phenylalanine_structure.svg/200px-L-Phenylalanine_structure.svg.png'>" },
+    { cat: "Aminosäuren", q: "Asparaginsäure (Asp, D)", a: "Sauer. Rest: -CH2-COOH<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/L-Aspartic_acid_structure.svg/200px-L-Aspartic_acid_structure.svg.png'>" },
+    { cat: "Aminosäuren", q: "Lysin (Lys, K)", a: "Basisch. Rest: -(CH2)4-NH2<br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/L-Lysine_structure.svg/200px-L-Lysine_structure.svg.png'>" }
 ];
 
 let workingDeck = [];
@@ -245,8 +135,8 @@ function update() {
     const card = document.getElementById('flashcard');
     card.classList.remove('flipped');
     if(workingDeck.length > 0) {
-        document.getElementById('q').innerText = workingDeck[idx].q;
-        document.getElementById('a').innerText = workingDeck[idx].a;
+        document.getElementById('q').innerHTML = workingDeck[idx].q;
+        document.getElementById('a').innerHTML = workingDeck[idx].a;
     } else {
         document.getElementById('learning-area').style.display = 'none';
         document.getElementById('finished-area').style.display = 'block';
